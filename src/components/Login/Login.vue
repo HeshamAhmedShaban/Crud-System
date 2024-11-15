@@ -121,7 +121,9 @@ export default {
         );
         if (result.data.length > 0) {
           alert("Login successful");
-          localStorage.setItem("userEmail", result.data[0].email);
+          console.log(result.data);
+
+          localStorage.setItem("userData", JSON.stringify(result.data[0]));
           this.errorMessage = "Login successful";
           this.redirectTo({ value: "home" });
         } else {

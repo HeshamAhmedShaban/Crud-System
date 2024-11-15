@@ -1,7 +1,7 @@
 <template>
-  <NavBar />
-  <div class="home">
-    <h1>Home</h1>
+  <div class="container">
+    <NavBar />
+    <p class="text-end">Welcome {{ userName }}</p>
   </div>
 </template>
 <script>
@@ -10,15 +10,24 @@ import { mapActions } from "vuex";
 export default {
   name: "HomeView",
   components: { NavBar },
-  data() {},
+  data() {
+    return {
+      userName: "",
+    };
+  },
   mounted() {
-    let email = localStorage.getItem("userEmail");
-    if (!email) {
-      this.redirectTo({ value: "SignUp" });
-    }
+    this.getUserData();
   },
   methods: {
     ...mapActions(["redirectTo"]),
+    getUserData() {
+      let userData = localStorage.getItem("userData");
+      if (!userData) {
+        this.redirectTo({ value: "SignUp" });
+      } else {
+        this.userName = JSON.parse(userData).name;
+      }
+    },
   },
 };
 </script>

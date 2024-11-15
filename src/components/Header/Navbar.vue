@@ -21,7 +21,7 @@ export default {
   methods: {
     ...mapActions(["redirectTo"]),
     logout() {
-      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userData");
       this.redirectTo({ value: "LoginPage" });
     },
   },

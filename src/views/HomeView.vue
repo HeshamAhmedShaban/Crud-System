@@ -1,7 +1,14 @@
 <template>
   <div class="container">
     <NavBar />
-    <p class="text-end">Welcome {{ userName }}</p>
+    <p class="text-end">
+      Welcome {{ userName }}
+      <router-link
+        :to="{ name: 'UserProfile', params: { pageTitle: 'Profile Page' } }"
+      >
+        <button class="btn btn-info" type="button">Profile</button>
+      </router-link>
+    </p>
   </div>
 </template>
 <script>

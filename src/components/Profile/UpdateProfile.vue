@@ -4,14 +4,17 @@
     <form @click.prevent>
       <div class="row g-3 align-items-center">
         <div class="col-auto d-block mx-auto">
-          <h1>Profile</h1>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter Your Name"
-            disabled
-            v-model="name"
-          />
+          <h1>Update Your Profile</h1>
+        </div>
+        <div class="row g-3 align-items-center">
+          <div class="col-auto d-block mx-auto">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Your Name"
+              v-model="name"
+            />
+          </div>
         </div>
       </div>
       <br />
@@ -21,7 +24,6 @@
             type="email"
             class="form-control"
             placeholder="Enter Your Email"
-            disabled
             v-model="email"
           />
         </div>
@@ -33,7 +35,6 @@
             type="password"
             class="form-control"
             placeholder="Enter Your password"
-            disabled
             v-model="password"
           />
         </div>
@@ -44,7 +45,7 @@
           <button
             type="submit"
             class="btn btn-primary"
-            @click="updateProfile()"
+            @click="updateUserData()"
           >
             Update Your Profile
           </button>
@@ -55,9 +56,8 @@
 </template>
 <script>
 import NavBar from "../Header/Navbar.vue";
-import { mapActions } from "vuex";
 export default {
-  name: "ProfilePage",
+  name: "UpdateProfile",
   components: { NavBar },
   data() {
     return {
@@ -70,7 +70,6 @@ export default {
     this.patchDataToTheForm();
   },
   methods: {
-    ...mapActions(["redirectTo"]),
     patchDataToTheForm() {
       let user = localStorage.getItem("userData");
       if (user) {
@@ -79,9 +78,7 @@ export default {
         this.password = JSON.parse(user).password;
       }
     },
-    updateProfile() {
-      this.redirectTo({ value: "UpdateProfile" });
-    },
+    updateUserData() {},
   },
 };
 </script>

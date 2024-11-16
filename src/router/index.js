@@ -31,11 +31,24 @@ const routes = [
     name: "UpdateProfile",
     component: import("../components/Profile/UpdateProfile.vue"),
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "ErrorPage",
+    component: import("../views/ErrorPage.vue"),
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.afterEach((to) => {
+  if (to.name) {
+    document.title = `${to.name} | ${process.env.VUE_APP_TITLE}`;
+  } else {
+    document.title = `${process.env.VUE_APP_TITLE}`;
+  }
 });
 
 export default router;

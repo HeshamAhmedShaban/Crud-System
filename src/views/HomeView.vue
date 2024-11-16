@@ -3,9 +3,7 @@
     <NavBar />
     <p class="text-end">
       Welcome {{ userName }}
-      <router-link
-        :to="{ name: 'UserProfile', params: { pageTitle: 'Profile Page' } }"
-      >
+      <router-link :to="{ name: 'UserProfile' }">
         <button class="btn btn-info" type="button">Profile</button>
       </router-link>
     </p>

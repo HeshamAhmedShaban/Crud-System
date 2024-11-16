@@ -77,6 +77,8 @@ export default {
         this.name = JSON.parse(user).name;
         this.email = JSON.parse(user).email;
         this.password = JSON.parse(user).password;
+      } else {
+        this.$router.push("/");
       }
     },
     updateProfile() {

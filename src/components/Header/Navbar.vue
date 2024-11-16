@@ -1,9 +1,6 @@
 <template>
   <ul id="nav">
-    <router-link
-      :to="{ name: 'home', params: { pageTitle: 'Home Page' } }"
-      exact
-    >
+    <router-link :to="{ name: 'home' }" exact>
       <li>
         <a>Home</a>
       </li>

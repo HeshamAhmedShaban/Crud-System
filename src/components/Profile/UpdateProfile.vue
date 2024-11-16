@@ -14,6 +14,9 @@
               placeholder="Enter Your Name"
               v-model="name"
             />
+            <span class="error-feedback text-danger" v-if="v$.name.$error">{{
+              v$.name.$errors[0].$message
+            }}</span>
           </div>
         </div>
       </div>
@@ -26,6 +29,9 @@
             placeholder="Enter Your Email"
             v-model="email"
           />
+          <span class="error-feedback text-danger" v-if="v$.email.$error">{{
+            v$.email.$errors[0].$message
+          }}</span>
         </div>
       </div>
       <br />
@@ -37,6 +43,9 @@
             placeholder="Enter Your password"
             v-model="password"
           />
+          <span class="error-feedback text-danger" v-if="v$.password.$error">{{
+            v$.password.$errors[0].$message
+          }}</span>
         </div>
       </div>
       <br />
@@ -56,14 +65,36 @@
 </template>
 <script>
 import NavBar from "../Header/Navbar.vue";
+import useValidate from "@vuelidate/core";
+import { required, email, minLength, maxLength } from "@vuelidate/validators";
+import axios from "axios";
 export default {
   name: "UpdateProfile",
   components: { NavBar },
   data() {
     return {
+      v$: useValidate(),
+      userData: {},
       name: "",
       email: "",
       password: "",
+    };
+  },
+  validations() {
+    return {
+      name: {
+        required,
+        minLength: minLength(5),
+        maxLength: maxLength(50),
+      },
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        minLength: minLength(8),
+      },
     };
   },
   mounted() {
@@ -72,13 +103,42 @@ export default {
   methods: {
     patchDataToTheForm() {
       let user = localStorage.getItem("userData");
+      this.userData = JSON.parse(user);
       if (user) {
         this.name = JSON.parse(user).name;
         this.email = JSON.parse(user).email;
         this.password = JSON.parse(user).password;
+      } else {
+        this.$router.push("/");
       }
     },
-    updateUserData() {},
+    async updateUserData() {
+      this.v$.$validate();
+      //   console.log(this.userData, "this.userData");
+      if (!this.v$.$error) {
+        let newUSerData = {
+          id: this.userData.id,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        };
+
+        let updateProfile = await axios.put(
+          `http://localhost:3000/users/${this.userData.id}`,
+          newUSerData
+        );
+        // console.log(updateProfile, "updateProfile");
+        if (updateProfile.data) {
+          alert("Profile updated successfully!");
+          localStorage.setItem("userData", JSON.stringify(newUSerData));
+          this.$router.push("/profile");
+        } else {
+          alert("Failed to update profile!");
+        }
+      } else {
+        return;
+      }
+    },
   },
 };
 </script>

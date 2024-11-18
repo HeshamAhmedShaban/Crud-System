@@ -5,4 +5,8 @@ import store from "./store";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "normalize.css";
-createApp(App).use(store).use(router).mount("#app");
+
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.mount("#app");

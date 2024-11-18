@@ -7,14 +7,16 @@
         <button class="btn btn-info" type="button">Profile</button>
       </router-link>
     </p>
+    <AddLocation />
   </div>
 </template>
 <script>
 import NavBar from "@/components/Header/Navbar.vue";
+import AddLocation from "@/components/Locations/Location.vue";
 import { mapActions } from "vuex";
 export default {
   name: "HomeView",
-  components: { NavBar },
+  components: { NavBar, AddLocation },
   data() {
     return {
       userName: "",

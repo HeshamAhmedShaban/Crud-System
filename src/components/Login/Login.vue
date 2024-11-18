@@ -92,6 +92,10 @@ export default {
     // if (email) {
     //   this.redirectTo({ value: "home" });
     // }
+    axios.get("http://localhost:3000/users").then((res) => {
+      console.log(res.data);
+    });
+    // console.log(result);
   },
   methods: {
     ...mapActions(["redirectTo"]),
